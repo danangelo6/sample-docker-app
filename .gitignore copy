@@ -1,0 +1,15 @@
+# CodeIgniter specific
+/app/config/config.php
+/app/config/database.php
+/app/cache/*
+/app/logs/*
+/system/*
+
+# Composer
+/vendor/
+
+# Node.js
+/node_modules/
+
+# Package file
+/package-lock.json

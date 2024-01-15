@@ -1,0 +1,8 @@
+FROM php:8.2-alpine3.19
+# Install Apache, unzip, and composer
+RUN apk --no-cache add apache2 unzip \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install required PHP extensions and dependencies
+RUN apk --no-cache add libicu-dev \
+    && docker-php-ext-install intl mysqli pdo pdo_mysql

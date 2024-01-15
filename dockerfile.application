@@ -1,0 +1,18 @@
+FROM superian12/containerize_codeigniter_poc:debian
+ENV COMPOSER_ALLOW_SUPERUSER 1
+WORKDIR /var/www/webform
+COPY . /var/www/webform/
+# Copy configurations 
+COPY ci/php.ini /usr/local/etc/php/php.ini
+COPY ci/webform.conf /etc/apache2/sites-available/webform.conf
+COPY ci/config.php app/Config/config.php
+COPY ci/Database.php app/Config/Database.php
+# Install dependencies
+RUN composer install 
+# Change Permission
+RUN chown -R www-data:www-data /var/www/* 
+# Restart Apache services
+RUN a2enmod rewrite && a2ensite webform && service apache2 restart
+
+EXPOSE 80
+CMD ["apache2-foreground"]
